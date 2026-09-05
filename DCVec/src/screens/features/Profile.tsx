@@ -10,7 +10,7 @@ export default function Profile() {
         <Text style={styles.eyebrow}>MI COMUNIDAD</Text>
         <Text style={styles.title}>Tu perfil vecino</Text>
         <View style={styles.profileCard}>
-          <Image source={require("../../../assets/icon.png")} style={styles.avatar} />
+          <Image source={require("../../../assets/neighbors.png")} style={styles.avatar} />
           <Text style={styles.name}>María González</Text>
           <Text style={styles.location}><Ionicons color="#668079" name="location-outline" size={15} /> Colonia Las Flores</Text>
           <View style={styles.stats}><View style={styles.stat}><Text style={styles.statNumber}>12</Text><Text style={styles.statLabel}>Ayudas dadas</Text></View><View style={styles.stat}><Text style={styles.statNumber}>4.9</Text><Text style={styles.statLabel}>Valoración</Text></View><View style={styles.stat}><Text style={styles.statNumber}>8</Text><Text style={styles.statLabel}>Ayudas recibidas</Text></View></View>

@@ -61,7 +61,7 @@ export default function Home({ route }: HomeProps) {
           <>
             <View style={styles.header}>
               <View><Text style={styles.greeting}>Hola, {name} 👋</Text><Text style={styles.headerSubtitle}>¿Qué pasa en tu comunidad?</Text></View>
-              <Image source={require("../../assets/icon.png")} style={styles.avatar} />
+              <Image source={require("../../assets/neighbors.png")} style={styles.avatar} />
             </View>
             <View style={styles.hero}>
               <View style={styles.heroCopy}><Text style={styles.heroEyebrow}>JUNTOS ES MÁS FÁCIL</Text><Text style={styles.heroTitle}>Una mano cerca puede cambiar el día.</Text><Text style={styles.heroBody}>Explora solicitudes de vecinos o publica lo que necesitas.</Text></View>

@@ -27,7 +27,7 @@ export default function Login({ navigation }: LoginScreenProps) {
           <View style={styles.brandIcon}><Ionicons color="#FFFFFF" name="people" size={23} /></View>
           <Text style={styles.brand}>DCVec</Text>
         </View>
-        <Image source={require("../../assets/icon.png")} style={styles.image} />
+        <Image source={require("../../assets/neighbors.png")} style={styles.image} />
         <Text style={styles.eyebrow}>RED DE AYUDA COMUNITARIA</Text>
         <Text style={styles.title}>Ayudarnos nos acerca.</Text>
         <Text style={styles.subtitle}>Encuentra apoyo en tu comunidad y comparte lo que sabes hacer.</Text>
