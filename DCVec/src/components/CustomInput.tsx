@@ -6,55 +6,49 @@ type CustomInputProps = {
   onChangeText: (text: string) => void;
   value: string;
   placeholder: string;
-  type?: "default" | "password" | "email" | "number";
+  label?: string;
+  type?: "default" | "password" | "email" | "phone";
+  error?: string;
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
 };
 
 export default function CustomInput({
   onChangeText,
   value,
   placeholder,
+  label,
   type = "default",
+  error,
+  autoCapitalize,
 }: CustomInputProps) {
-    const [isSecureText, setIsSecureText] = useState(type === "password");
-
-    const isPasswordField = type === "password";
-
-    const iconName: (typeof MaterialIcons)["name"] | undefined = 
-        type === "password" ? "lock" : 
-            type === "email" ? "alternate-email" : undefined
-
-    const keyboardType: KeyboardTypeOptions =
-    type === "email"
-      ? "email-address"
-      : type === "number"
-        ? "number-pad"
-        : "default";
-
-  const error =
-    type === "email" && value && !value.includes("@")
-      ? "Correo inválido"
-      : type === "password" && value && value.length < 4
-        ? "La contraseña es débil"
-        : "";
+  const [isSecureText, setIsSecureText] = useState(type === "password");
+  const isPasswordField = type === "password";
+  const keyboardType: KeyboardTypeOptions =
+    type === "email" ? "email-address" : type === "phone" ? "phone-pad" : "default";
+  const iconName =
+    type === "password" ? "lock-outline" : type === "email" ? "alternate-email" : type === "phone" ? "phone" : "edit-note";
 
   return (
     <View style={styles.wrapper}>
+      {label ? <Text style={styles.label}>{label}</Text> : null}
       <View style={[styles.inputContainer, error && styles.inputError]}>
-       <MaterialIcons name={iconName as any} size={22} />
+        <MaterialIcons name={iconName} color="#5A716A" size={21} />
         <TextInput
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={value}
-          placeholder={placeholder}
+          autoCapitalize={autoCapitalize ?? (type === "email" ? "none" : "sentences")}
+          autoCorrect={false}
           keyboardType={keyboardType}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          placeholderTextColor="#84958F"
           secureTextEntry={isSecureText}
+          style={styles.input}
+          value={value}
         />
-       { isPasswordField && <TouchableOpacity
-            onPress={()=>{
-                setIsSecureText(!isSecureText);
-            }}>
-            <Ionicons name="eye" size={22}/>
-        </TouchableOpacity>}
+        {isPasswordField ? (
+          <TouchableOpacity accessibilityRole="button" onPress={() => setIsSecureText((current) => !current)}>
+            <Ionicons color="#5A716A" name={isSecureText ? "eye-outline" : "eye-off-outline"} size={21} />
+          </TouchableOpacity>
+        ) : null}
       </View>
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
@@ -63,29 +57,37 @@ export default function CustomInput({
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 10,
+    marginBottom: 16,
+  },
+  label: {
+    color: "#24453E",
+    fontSize: 13,
+    fontWeight: "700",
+    marginBottom: 7,
   },
   inputContainer: {
-    backgroundColor:'lightgray',
-    //distribucion de componentes con flexbox
-    flexDirection: 'row',
     alignItems: "center",
-    justifyContent: "space-between",
-    borderRadius: 9, 
-    borderColor: 'gray',
+    backgroundColor: "#F2F7F4",
+    borderColor: "#D6E4DE",
+    borderRadius: 14,
     borderWidth: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-
+    flexDirection: "row",
+    minHeight: 54,
+    paddingHorizontal: 16,
   },
   input: {
-    width: "70%",
+    color: "#173B35",
+    flex: 1,
+    fontSize: 15,
+    marginLeft: 12,
+    paddingVertical: 4,
   },
   errorText: {
-    color: "red",
+    color: "#B43F3F",
+    fontSize: 12,
     marginTop: 6,
   },
   inputError: {
-    borderColor: "red",
+    borderColor: "#B43F3F",
   },
 });
