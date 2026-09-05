@@ -1,56 +1,54 @@
-import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
 import Profile from "../screens/features/Profile";
 import Settings from "../screens/features/Settings";
 import Home from "../screens/Home";
 
-//1. declarar el tipado de las pantallas con sus parametros
-export type TabsParamList ={
-    ProfileTab: undefined,
-    SettingsTab: undefined,
-    HomeTab: {email:string},
+export type TabsParamList = {
+  HomeTab: { email: string; name: string };
+  ProfileTab: undefined;
+  SettingsTab: undefined;
 };
 
-//2. crear el tabs navigator encargado de manejar la navegacion por pestañas
 const Tab = createBottomTabNavigator<TabsParamList>();
 
-//3. utilizar el navegador por tabs
-export default function TabNavigator (){
-    return(
-        <Tab.Navigator>
-            <Tab.Screen
-                name='HomeTab'
-                component={Home}
-                initialParams={{email:"usuario"}}
-                options={{
-                    title: "Inicio",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="home-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name='ProfileTab'
-                component={Profile}
-                options={{
-                    title: "Perfil",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="person-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name='SettingsTab'
-                component={Settings}
-                options={{
-                    title: "Preferencias",
-                    tabBarIcon: ({color, size}) => (
-                        <Ionicons name="settings-outline" color={color} size={size} />
-                    ),
-                }}
-            />
-        </Tab.Navigator>
-    )
+export default function TabNavigator() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: "#174A42",
+        tabBarInactiveTintColor: "#82938D",
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+        tabBarStyle: { borderTopColor: "#E0EBE6", height: 68, paddingBottom: 10, paddingTop: 8 },
+      }}
+    >
+      <Tab.Screen
+        name="HomeTab"
+        component={Home}
+        initialParams={{ email: "vecino@dcvec.app", name: "Vecino" }}
+        options={{
+          title: "Inicio",
+          tabBarIcon: ({ color, size }) => <Ionicons color={color} name="home-outline" size={size} />,
+        }}
+      />
+      <Tab.Screen
+        name="ProfileTab"
+        component={Profile}
+        options={{
+          title: "Mi perfil",
+          tabBarIcon: ({ color, size }) => <Ionicons color={color} name="person-outline" size={size} />,
+        }}
+      />
+      <Tab.Screen
+        name="SettingsTab"
+        component={Settings}
+        options={{
+          title: "Ajustes",
+          tabBarIcon: ({ color, size }) => <Ionicons color={color} name="settings-outline" size={size} />,
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
-
