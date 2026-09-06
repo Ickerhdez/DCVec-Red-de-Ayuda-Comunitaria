@@ -15,9 +15,13 @@ export default function Login({ navigation }: LoginScreenProps) {
   const passwordError = submitted && password.length < 6 ? "Usa al menos 6 caracteres." : "";
 
   const handleLogin = () => {
+    const normalizedEmail = email.trim();
+    const hasEmailError = !isValidEmail(normalizedEmail);
+    const hasPasswordError = password.trim().length < 6;
+
     setSubmitted(true);
-    if (emailError || passwordError) return;
-    navigation.replace("UserTabs", { email: email.trim(), name: email.split("@")[0] || "Vecino" });
+    if (hasEmailError || hasPasswordError) return;
+    navigation.replace("UserTabs", { email: normalizedEmail, name: normalizedEmail.split("@")[0] || "Vecino" });
   };
 
   return (
