@@ -2,8 +2,18 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import CustomButton from "../../components/CustomButton";
+import { navigationRef } from "../../navigation/NavigationService";
 
 export default function Profile() {
+  const handleLogout = () => {
+    if (navigationRef.isReady()) {
+      navigationRef.reset({
+        index: 0,
+        routes: [{ name: "LoginScreen" }],
+      });
+    }
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.content}>
@@ -18,6 +28,7 @@ export default function Profile() {
         <Text style={styles.sectionTitle}>Sobre ti</Text>
         <View style={styles.infoRow}><Ionicons color="#397568" name="sparkles-outline" size={20} /><Text style={styles.infoText}>Me gusta ayudar con reparaciones y compartir herramientas.</Text></View>
         <CustomButton title="Editar perfil" onPress={() => {}} variant="secondary" />
+        <CustomButton title="Cerrar sesión" onPress={handleLogout} variant="tertiary" />
       </View>
     </SafeAreaView>
   );
